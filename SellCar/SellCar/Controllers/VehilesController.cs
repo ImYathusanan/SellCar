@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SellCar.Controllers.Resources;
-using SellCar.Models;
+using SellCar.Core;
+using SellCar.Core.Models;
 using SellCar.Persistence;
 
 namespace SellCar.Controllers
@@ -16,49 +17,52 @@ namespace SellCar.Controllers
     [ApiController]
     public class VehilesController : ControllerBase
     {
-        private readonly SellCarDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public VehilesController(SellCarDbContext context, IMapper mapper)
+        public VehilesController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehile([FromBody] VehicleResource vehileResource)
+        public async Task<IActionResult> CreateVehile([FromBody] SaveVehicleResource vehileResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehile = _mapper.Map<VehicleResource, Vehile>(vehileResource);
+            var vehile = _mapper.Map<SaveVehicleResource, Vehile>(vehileResource);
             vehile.LastUpdate = DateTime.Now;
 
-            _context.Vehiles.Add(vehile);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Vehiles.Add(vehile);
+            await _unitOfWork.CompleteAsync();
 
-            var result = _mapper.Map<Vehile, VehicleResource>(vehile);
+            vehile = await _unitOfWork.Vehiles.GetVehile(vehile.Id);
+
+            var result = _mapper.Map<Vehile, VehileResource>(vehile);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehile(int id, [FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> UpdateVehile(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehile = await _context.Vehiles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+            var vehile = await _unitOfWork.Vehiles.GetVehile(id);
 
             if (vehile == null)
                 return NotFound();
             
-            _mapper.Map<VehicleResource, Vehile>(vehicleResource, vehile);
+            _mapper.Map<SaveVehicleResource, Vehile>(vehicleResource, vehile);
             vehile.LastUpdate = DateTime.Now;
 
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
 
-            var result = _mapper.Map<Vehile, VehicleResource>(vehile);
+            vehile = await _unitOfWork.Vehiles.GetVehile(vehile.Id);
+            var result = _mapper.Map<Vehile, VehileResource>(vehile);
 
             return Ok(result);
 
@@ -67,13 +71,13 @@ namespace SellCar.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehile(int id)
         {
-            var vehile = await _context.Vehiles.FindAsync(id);
+            var vehile = await _unitOfWork.Vehiles.GetVehile(id, includeRelated: false);
 
             if (vehile == null)
                 return NotFound();
 
-            _context.Remove(vehile);
-            await _context.SaveChangesAsync();
+            _unitOfWork.Vehiles.Remove(vehile);
+            await _unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -81,12 +85,12 @@ namespace SellCar.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehile(int id)
         {
-            var vehile = await _context.Vehiles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+            var vehile = await _unitOfWork.Vehiles.GetVehile(id);
 
             if (vehile == null)
                 return NotFound();
 
-            var vehileResource = _mapper.Map<Vehile, VehicleResource>(vehile);
+            var vehileResource = _mapper.Map<Vehile, VehileResource>(vehile);
 
             return Ok(vehileResource);
         }

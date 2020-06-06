@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SellCar.Mapping;
 using SellCar.Persistence;
+using SellCar.Core;
 
 namespace SellCar
 {
@@ -31,6 +32,7 @@ namespace SellCar
         {
             services.AddDbContext<SellCarDbContext>(options => 
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllers().AddNewtonsoftJson();
             services.AddCors();

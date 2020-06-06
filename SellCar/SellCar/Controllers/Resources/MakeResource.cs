@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace SellCar.Controllers.Resources
 {
-    public class MakeResource
+    public class MakeResource : KeyValuePairResource
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public ICollection<ModelsResource> Models { get; set; }
+       
+        public ICollection<KeyValuePairResource> Models { get; set; }
 
         public MakeResource()
         {
-            Models = new Collection<ModelsResource>();
+            Models = new Collection<KeyValuePairResource>();
         }
     }
 }

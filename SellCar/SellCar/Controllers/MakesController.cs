@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SellCar.Models;
+using SellCar.Core.Models;
 using SellCar.Controllers.Resources;
 using SellCar.Persistence;
 

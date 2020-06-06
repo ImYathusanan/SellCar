@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SellCar.Models;
+using SellCar.Core.Models;
 using SellCar.Controllers.Resources;
 using SellCar.Persistence;
 
@@ -27,11 +27,11 @@ namespace SellCar.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<FeatureResource>> GetFeatures()
+        public async Task<IEnumerable<KeyValuePairResource>> GetFeatures()
         {
             var features = await _context.Features.ToListAsync();
 
-            return _mapper.Map<List<Feature>, List<FeatureResource>>(features);
+            return _mapper.Map<List<Feature>, List<KeyValuePairResource>>(features);
         }
     }
 }

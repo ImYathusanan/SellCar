@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SellCar.Models
+namespace SellCar.Core.Models
 {
     public class Make
     {

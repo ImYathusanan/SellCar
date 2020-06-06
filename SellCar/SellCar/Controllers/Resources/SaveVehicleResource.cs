@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SellCar.Controllers.Resources
 {
-    public class VehicleResource
+    public class SaveVehicleResource
     {
         public int Id { get; set; }
 
@@ -21,7 +21,7 @@ namespace SellCar.Controllers.Resources
 
         public ICollection<int> Features { get; set; }
 
-        public VehicleResource()
+        public SaveVehicleResource()
         {
             Features = new Collection<int>();
         }

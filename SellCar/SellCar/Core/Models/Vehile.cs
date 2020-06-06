@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SellCar.Models
+namespace SellCar.Core.Models
 {
     public class Vehile
     {

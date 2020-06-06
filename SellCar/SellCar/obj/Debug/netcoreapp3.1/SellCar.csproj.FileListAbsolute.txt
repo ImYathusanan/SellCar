@@ -51,7 +51,6 @@ D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\run
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\obj\Debug\netcoreapp3.1\SellCar.csprojAssemblyReference.cache
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\.NetCoreFullStackProjects\SellCar\SellCar\SellCar\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

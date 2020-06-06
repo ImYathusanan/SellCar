@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace SellCar.Controllers.Resources
 {
-    public class ModelsResource
+    public class KeyValuePairResource
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
     }
 }

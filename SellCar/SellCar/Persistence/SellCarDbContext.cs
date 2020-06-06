@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using SellCar.Models;
+using SellCar.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

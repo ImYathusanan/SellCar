@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SellCar.Models
+namespace SellCar.Core.Models
 {
     public class VehileFeature
     {
