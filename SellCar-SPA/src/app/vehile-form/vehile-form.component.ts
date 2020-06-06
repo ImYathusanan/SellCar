@@ -11,7 +11,9 @@ export class VehileFormComponent implements OnInit {
   makes: any[];
   models: any[];
   features: any[];
-  vehiles: any = {};
+  vehiles: any = {
+    features: []
+  };
 
   constructor(private vehileService: VehileService) { }
 
@@ -26,8 +28,18 @@ export class VehileFormComponent implements OnInit {
   }
 
   onMakeChange() {
-    let selectedMake = this.makes.find(m => m.id == this.vehiles.make);
+    let selectedMake = this.makes.find(m => m.id == this.vehiles.makeId);
     this.models = selectedMake ? selectedMake.models : [];
+    delete this.vehiles.modelId;
+  }
+
+  onFeatureTick(featureId, $event) {
+    if ($event.target.checked)
+      this.vehiles.features.push(featureId);
+    else {
+      let index = this.vehiles.features.indexOf(featureId);
+      this.vehiles.features.splice(index, 1);
+    }
   }
 
 }
